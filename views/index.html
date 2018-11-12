@@ -26,24 +26,39 @@
     <section class='section'>
         <div class="container">
             <div class="column is-one-third is-offset-4">
-                <div class="content">
-                    <div class="notification">
-                        <label class="label"> Add Task:</label>
+                <div class="field has-addons">
+                    <div class='control'>
+                        <div class="notification">
+                            <label class="label"> Add Task:</label>
 
-                        <form action='/api/todos' method='POST'>
+                            <form action='/api/todos' method='POST'>
+                                <div class="field has-addons">
+                                    <div class="control">
 
-                            <input type="text" placeholder='Add New Task' name="todo" required />
-                            <select name="status" style="visibility:hidden;position:absolute;">
-                                <option value='doing'></option>
-                                <option value="complete"></option>
-                                <option value="todo" selected hidden></option>
-                            </select>
-                            <button class="submit"> Add Task </button>
+                                        <input class='input' type="text" placeholder='Add New Task' name="todo"
+                                            required />
+                                        <select name="status" style="visibility:hidden;position:absolute;">
+                                            <option value='doing'></option>
+                                            <option value="complete"></option>
+                                            <option value="todo" selected hidden></option>
+                                        </select>
 
-                        </form>
+                            </form>
+
+
+
+                        </div>
+                        <div class="control">
+                            <a class="button is-info">
+                                Add Task
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+
+        </div>
+        </div>
         </div>
     </section>
 
@@ -147,7 +162,7 @@
                         <div class="content">
                             <h1 class="title is-size-4"> Done </h1>
 
-                            
+
 
                             <div id="doneTodos">
 
@@ -169,26 +184,28 @@
                     </div>
                 </div>
             </div>
-        
 
-        <div class="column">
-            <div class="media notification has-background-white">
-                <figure class="media-left">
-                    <span class="icon has-text-warning">
-                        <i class="fas fa-lg fa-th-large"></i>
-                    </span>
-                </figure>
-                <div class="media-content">
-                    <div class="content">
-                        <h1 class="title is-size-4"> Shared </h1>
-                        <div class='notification'>
 
-                            <p class="sharedTodos"></div></p>
+            <div class="column">
+                <div class="media notification has-background-white">
+                    <figure class="media-left">
+                        <span class="icon has-text-warning">
+                            <i class="fas fa-lg fa-th-large"></i>
+                        </span>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <h1 class="title is-size-4"> Shared </h1>
+                            <div class='notification'>
+
+                                <p class="sharedTodos">
+                            </div>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
 
 
