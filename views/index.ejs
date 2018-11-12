@@ -17,7 +17,7 @@
     <section class="hero is-small is-light">
         <div class="hero-body">
             <div class="container is-size-2 has-text-black has-text-centered has-text-weight-bold ">
-                <h1><strong> Your Todo List </strong></h1>
+                <h1><strong> Title </strong></h1>
             </div>
         </div>
     </section>
@@ -34,19 +34,14 @@
                             <form action='/api/todos' method='POST'>
                                 <div class="field has-addons">
                                     <div class="control">
-
                                         <input class='input' type="text" placeholder='Add New Task' name="todo"
-                                            required />
+                                            required>
                                         <select name="status" style="visibility:hidden;position:absolute;">
                                             <option value='doing'></option>
                                             <option value="complete"></option>
                                             <option value="todo" selected hidden></option>
                                         </select>
-
                             </form>
-
-
-
                         </div>
                         <div class="control">
                             <a class="button is-info">
@@ -56,9 +51,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-        </div>
         </div>
     </section>
 
@@ -77,31 +69,50 @@
                         <div class="content">
                             <h1 class="title is-size-4"> To Do </h1>
 
-                            <div id='todos'>
+                            <div class='todos'>
 
                                 <% for ( var i = 0; i < todos.length; i++){ %>
 
                                 <% if(todos[i].status === 'todo'){ %>
-                                <div class='notification'>
+                                
+                                <div class='notification is-capitalized	has-text-centered'>
+                                    <button class='deleteTodo delete' data-id="<%=  todos[i]._id %>"></button>
+
                                     <p id="<%= todos[i]._id %>">
-                                        <%= todos[i].todo %> -
+                                        <strong><%= todos[i].todo %></strong>
 
-                                        <button class='doneTodo' data-id="<%=  todos[i]._id %>"> Done </button>
+                                         <p class="doneTodo button is-success is-rounded is-small is-outlined" data-id="<%=  todos[i]._id %>">
+                                            <span class="icon is-small">
+                                            <i class="fas fa-check"></i>
+                                            </span>
+                                            <span> Move to Doing </span>
+                                        </p>
 
-                                        <input type="text" class='editTodo' placeholder='Update Todo' />
-                                        <button id='editTodo' data-id="<%=  todos[i]._id %>"> Edit </button>
+                                        <div class="editTodo field has-addons has-addons-centered">
+                                            <div class="control is-expanded">
+                                                <input class="input is-small" type="text" placeholder='Update Todo'>
+                                            </div>
+                                            <div class="control">
+                                                <a class="button is-info is-small"> Edit </a>
+                                            </div>
+                                        </div>
 
-                                        <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete
-                                        </button>
-
-                                        <input type="text" id="shareEmail" placeholder='Share Email'>
-                                        <button class="shareTask"> Share </button>
+                                        <div class="shareTask field has-addons has-addons-centered">
+                                            <div class="control is-expanded">
+                                                <input class="shareEmail input is-small" type="text" placeholder='Share Email'>
+                                            </div>
+                                            <div class="control">
+                                                <a class="button is-info is-small">
+                                                    Share
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
                                     </p>
                                 </div>
 
                                 <% } %>
                                 <% } %>
-
                             </div>
                         </div>
                     </div>
@@ -120,25 +131,44 @@
                         <div class="content">
                             <h1 class="title is-size-4"> Doing </h1>
 
-                            <div id="doingTodos">
+                            <div class="doingTodos">
 
                                 <% for ( var i = 0; i < todos.length; i++){ %>
 
                                 <% if(todos[i].status === 'doing'){ %>
-                                <div class='notification'>
+
+                                <div class='notification has-text-centered'>
+                                    <button class="deleteTodo delete" data-id="<%=  todos[i]._id %>"></button>
+
                                     <p id="<%= todos[i]._id %>">
-                                        <%= todos[i].todo %> -
+                                        <%= todos[i].todo %>
 
-                                        <button class='doingTodo' data-id="<%=  todos[i]._id %>"> Done </button>
+                                        <p class="doingTodo button is-success is-rounded is-small is-outlined" data-id="<%=  todos[i]._id %>">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                            <span> Move to Done </span>
+                                        </p>
 
-                                        <input type="text" class='todoEdit' placeholder='Update Todo' />
-                                        <button id='todoEdit' data-id="<%=  todos[i]._id %>"> Edit </button>
+                                        <div class="editTodo field has-addons has-addons-centered">
+                                            <div class="control is-expanded">
+                                                <input class="input is-small type="text" placeholder='Update Todo'>
+                                            </div>
+                                            <div class="control">
+                                                <a class="button is-info is-small"> Edit </a>
+                                            </div>
+                                        </div>
 
-                                        <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete
-                                        </button>
-
-                                        <input type="text" id="shareEmail" placeholder='Share Email'>
-                                        <button class="shareTask"> Share </button>
+                                        <div class="shareTask field has-addons has-addons-centered">
+                                            <div class="control is-expanded">
+                                                <input class="shareEmail input is-small" type="text" placeholder='Share Email'>
+                                            </div>
+                                            <div class="control">
+                                                <a class="button is-info is-small">
+                                                    Share
+                                                </a>
+                                            </div>
+                                        </div>
                                     </p>
                                 </div>
 
@@ -162,17 +192,14 @@
                         <div class="content">
                             <h1 class="title is-size-4"> Done </h1>
 
-
-
-                            <div id="doneTodos">
+                            <div class="doneTodos">
 
                                 <% for ( var i = 0; i < todos.length; i++){ %>
                                 <% if(todos[i].status === 'completed'){ %>
-                                <div class='notification'>
+                                <div class='notification has-text-centered'>
+                                    <button class="deleteTodo delete" data-id="<%=  todos[i]._id %>"></button>
                                     <p id="<%= todos[i]._id %>">
-                                        <%= todos[i].todo %> -
-
-                                        <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete </button>
+                                        <%= todos[i].todo %>
                                     </p>
                                 </div>
 
@@ -198,7 +225,7 @@
                             <h1 class="title is-size-4"> Shared </h1>
                             <div class='notification'>
 
-                                <p class="sharedTodos">
+                                <p class="shareTask">
                             </div>
                             </p>
                         </div>
@@ -213,9 +240,11 @@
     <script>
 
         // delete a todo
-        $('.deleteTodo').on('click', deleteTodo);
+        $('.deleteTodo').click(deleteTodo);
         function deleteTodo() {
+
             var confirmation = confirm('Are you sure?');
+            console.log($(this).data('id'));
 
             if (confirmation) {
                 $.ajax({
@@ -231,11 +260,11 @@
         // move from todo from todo to doing
         $('.doneTodo').each(function () {
             $(this).click(function () {
-                $(this).parent().appendTo('#doingTodos')
+                $(this).parent().appendTo('.doingTodos')
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).parent().attr('id'),
+                    "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).data('id'),
                     "method": "POST",
                     "headers": {
                         "Content-Type": "application/json",
@@ -256,11 +285,11 @@
         // move from todo from doing to done
         $('.doingTodo').each(function () {
             $(this).click(function () {
-                $(this).parent().appendTo('#doneTodos')
+                $(this).parent().appendTo('.doneTodos')
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).parent().attr('id'),
+                    "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).data('id'),
                     "method": "POST",
                     "headers": {
                         "Content-Type": "application/json",
@@ -280,9 +309,9 @@
 
 
         // updates the todo name for tasks todo
-        $('#editTodo').click(function () {
+        $('.editTodo').click(function () {
             console.log('henlo')
-            var editData = $(this).parent().find('.editTodo').val();
+            var editData = $(this).parent().find('#editTodo').val();
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -303,7 +332,7 @@
         })
 
         // updates the todo name for doing tasks
-        $('#todoEdit').click(function () {
+        $('.todoEdit').click(function () {
             var editData = $(this).parent().find('.todoEdit').val();
             var settings = {
                 "async": true,
