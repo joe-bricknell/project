@@ -14,7 +14,7 @@
 
 <body>
 
-<section class="hero is-small">
+    <section class="hero is-small is-light">
         <div class="hero-body">
             <div class="container is-size-2 has-text-black has-text-centered has-text-weight-bold ">
                 <h1><strong> Your Todo List </strong></h1>
@@ -32,16 +32,15 @@
 
                         <form action='/api/todos' method='POST'>
 
-                            <input type="text" placeholder='Add New Task' name="todo">
+                            <input type="text" placeholder='Add New Task' name="todo" required />
                             <select name="status" style="visibility:hidden;position:absolute;">
                                 <option value='doing'></option>
                                 <option value="complete"></option>
                                 <option value="todo" selected hidden></option>
                             </select>
                             <button class="submit"> Add Task </button>
-                    
+
                         </form>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -49,69 +48,70 @@
     </section>
 
 
+
     <section class="section has-background-light">
-        <div class="container">
-            <div class="columns is-multiline">
-               <div class="column is-one-third">
-                    <article class="media notification has-background-white">
-                        <figure class="media-left">
-                            <span class="icon has-text-danger">
-                                <i class="fas fa-lg fa-list-ul"></i>
-                            </span>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <h1 class="title is-size-4"> To Do </h1>
+        <div class="columns is-multiline">
+            <div class="column is-one-third">
+                <div class="notification has-background-white">
+                    <figure class="media-left">
+                        <span class="icon has-text-danger">
+                            <i class="fas fa-lg fa-list-ul"></i>
+                        </span>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <h1 class="title is-size-4"> To Do </h1>
+
+                            <div id='todos'>
+
+                                <% for ( var i = 0; i < todos.length; i++){ %>
+
+                                <% if(todos[i].status === 'todo'){ %>
                                 <div class='notification'>
+                                    <p id="<%= todos[i]._id %>">
+                                        <%= todos[i].todo %> -
 
-                                    <div id='todos'>
+                                        <button class='doneTodo' data-id="<%=  todos[i]._id %>"> Done </button>
 
-                                    <% for ( var i = 0; i < todos.length; i++){ %>
+                                        <input type="text" class='editTodo' placeholder='Update Todo' />
+                                        <button id='editTodo' data-id="<%=  todos[i]._id %>"> Edit </button>
 
-                                    <% if(todos[i].status === 'todo'){ %>
-                                    <li id="<%= todos[i]._id %>">
-                                    <%= todos[i].todo %> -
+                                        <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete
+                                        </button>
 
-                                    <button class='doneTodo' data-id="<%=  todos[i]._id %>"> Done </button>
-
-                                    <input type="text" class='editTodo' placeholder='Update Todo' />
-                                    <button id='editTodo' data-id="<%=  todos[i]._id %>"> Edit </button>
-
-                                    <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete </button>
-
-                                    <input type="text" id="shareEmail" placeholder='Share Email'>
-                                    <button class="shareTask"> Share </button>
-                                    </li><br>
-
-                                    <% } %>
-                                    <% } %>
-
+                                        <input type="text" id="shareEmail" placeholder='Share Email'>
+                                        <button class="shareTask"> Share </button>
+                                    </p>
                                 </div>
 
-                                </div>
+                                <% } %>
+                                <% } %>
+
                             </div>
                         </div>
-                    </article>
+                    </div>
                 </div>
+            </div>
 
-                <div class="column is-one-third">
-                    <article class="media notification has-background-white">
-                        <figure class="media-left">
-                            <span class="icon has-text-warning">
-                                <i class="fas fa-lg fa-th-large"></i>
-                            </span>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <h1 class="title is-size-4"> Doing </h1>
+
+            <div class="column is-one-third">
+                <div class="notification has-background-white">
+                    <figure class="media-left">
+                        <span class="icon has-text-warning">
+                            <i class="fas fa-lg fa-th-large"></i>
+                        </span>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <h1 class="title is-size-4"> Doing </h1>
+
+                            <div id="doingTodos">
+
+                                <% for ( var i = 0; i < todos.length; i++){ %>
+
+                                <% if(todos[i].status === 'doing'){ %>
                                 <div class='notification'>
-
-                                    <div id="doingTodos">
-
-                                        <% for ( var i = 0; i < todos.length; i++){ %>
-
-                                        <% if(todos[i].status === 'doing'){ %>
-                                        <li id="<%= todos[i]._id %>">
+                                    <p id="<%= todos[i]._id %>">
                                         <%= todos[i].todo %> -
 
                                         <button class='doingTodo' data-id="<%=  todos[i]._id %>"> Done </button>
@@ -119,238 +119,238 @@
                                         <input type="text" class='todoEdit' placeholder='Update Todo' />
                                         <button id='todoEdit' data-id="<%=  todos[i]._id %>"> Edit </button>
 
-                                        <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete </button>
+                                        <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete
+                                        </button>
 
                                         <input type="text" id="shareEmail" placeholder='Share Email'>
                                         <button class="shareTask"> Share </button>
-                                        </li><br>
-
-                                        <% } %>
-                                        <% } %>
-
-                                    </div>
-
+                                    </p>
                                 </div>
+
+                                <% } %>
+                                <% } %>
+
                             </div>
                         </div>
-                    </article>
+                    </div>
                 </div>
-                <div class="column is-one-third">
-                    <article class="media notification has-background-white">
-                        <figure class="media-left">
-                            <span class="icon has-text-success">
-                                <i class="fas fa-lg fa-check-circle"></i>
-                            </span>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <h1 class="title is-size-4"> Done </h1>
-                                <div class='notification'>
-                                    <button class="delete"></button>
+            </div>
 
-                                    <div id="doneTodos">
-                                        <% for ( var i = 0; i < todos.length; i++){ %>
-                                        <% if(todos[i].status === 'completed'){ %>
-                                        <li id="<%= todos[i]._id %>">
+            <div class="column is-one-third">
+                <div class="notification has-background-white">
+                    <figure class="media-left">
+                        <span class="icon has-text-success">
+                            <i class="fas fa-lg fa-check-circle"></i>
+                        </span>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <h1 class="title is-size-4"> Done </h1>
+
+                            
+
+                            <div id="doneTodos">
+
+                                <% for ( var i = 0; i < todos.length; i++){ %>
+                                <% if(todos[i].status === 'completed'){ %>
+                                <div class='notification'>
+                                    <p id="<%= todos[i]._id %>">
                                         <%= todos[i].todo %> -
 
                                         <button class='deleteTodo' data-id="<%=  todos[i]._id %>"> Delete </button>
-                                        </li><br>
-
-                                        <% } %>
-                                        <% } %>
-                                    </div>
-
+                                    </p>
                                 </div>
+
+                                <% } %>
+                                <% } %>
                             </div>
+
                         </div>
-                    </article>
+                    </div>
                 </div>
+            </div>
+        
 
-                <div class="column">
-                    <article class="media notification has-background-white">
-                        <figure class="media-left">
-                            <span class="icon has-text-warning">
-                                <i class="fas fa-lg fa-th-large"></i>
-                            </span>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <h1 class="title is-size-4"> Shared </h1>
-                                <div class='notification'>
+        <div class="column">
+            <div class="media notification has-background-white">
+                <figure class="media-left">
+                    <span class="icon has-text-warning">
+                        <i class="fas fa-lg fa-th-large"></i>
+                    </span>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <h1 class="title is-size-4"> Shared </h1>
+                        <div class='notification'>
 
-                                    <div class="sharedTodos">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                            <p class="sharedTodos"></div></p>
+                    </div>
                 </div>
-
             </div>
         </div>
+    </div>
     </section>
 
 
 
-  <script>
+    <script>
 
-    // delete a todo
-    $('.deleteTodo').on('click', deleteTodo);
-    function deleteTodo() {
-      var confirmation = confirm('Are you sure?');
+        // delete a todo
+        $('.deleteTodo').on('click', deleteTodo);
+        function deleteTodo() {
+            var confirmation = confirm('Are you sure?');
 
-      if (confirmation) {
-        $.ajax({
-          type: 'delete',
-          url: '/api/todos/delete/' + $(this).data('id')
+            if (confirmation) {
+                $.ajax({
+                    type: 'delete',
+                    url: '/api/todos/delete/' + $(this).data('id')
+                })
+            } else {
+                return false
+            }
+            location.reload();
+        }
+
+        // move from todo from todo to doing
+        $('.doneTodo').each(function () {
+            $(this).click(function () {
+                $(this).parent().appendTo('#doingTodos')
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).parent().attr('id'),
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "cache-control": "no-cache",
+                        "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
+                    },
+                    "processData": false,
+                    "data": "{\n\t\"status\":\"doing\"\n}"
+                }
+
+                $.ajax(settings).done(function (response) {
+                });
+                location.reload();
+
+            })
         })
-      } else {
-        return false
-      }
-      location.reload();
-    }
 
-    // move from todo from todo to doing
-    $('.doneTodo').each(function () {
-      $(this).click(function () {
-        $(this).parent().appendTo('#doingTodos')
+        // move from todo from doing to done
+        $('.doingTodo').each(function () {
+            $(this).click(function () {
+                $(this).parent().appendTo('#doneTodos')
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).parent().attr('id'),
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "cache-control": "no-cache",
+                        "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
+                    },
+                    "processData": false,
+                    "data": "{\n\t\"status\":\"completed\"\n}"
+                }
+
+                $.ajax(settings).done(function (response) {
+                });
+                location.reload();
+
+            })
+        })
+
+
+        // updates the todo name for tasks todo
+        $('#editTodo').click(function () {
+            console.log('henlo')
+            var editData = $(this).parent().find('.editTodo').val();
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:3000/api/todos/update/" + $(this).parent().attr('id'),
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "cache-control": "no-cache",
+                    "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
+                },
+                "processData": false,
+                "data": "{\n\t\"todo\":\"" + editData + "\"\n}"
+            }
+
+            $.ajax(settings).done(function (response) {
+            });
+            location.reload();
+        })
+
+        // updates the todo name for doing tasks
+        $('#todoEdit').click(function () {
+            var editData = $(this).parent().find('.todoEdit').val();
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:3000/api/todos/update/" + $(this).parent().attr('id'),
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "cache-control": "no-cache",
+                    "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
+                },
+                "processData": false,
+                "data": "{\n\t\"todo\":\"" + editData + "\"\n}"
+            }
+
+            $.ajax(settings).done(function (response) {
+            });
+            location.reload();
+        })
+
+        // allows sharing of tasks
+        $('.shareTask').click(function () {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:3000/api/todos/share",
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "cache-control": "no-cache",
+                    "Postman-Token": "e74fd4ce-6c8a-4850-af2f-d6308c64f9a8"
+                },
+                "data": {
+                    "id": $(this).parent().attr('id'),
+                    "email": $(this).parent().find('#shareEmail').val()
+                }
+            }
+
+            $.ajax(settings).done(function (response) {
+            });
+            location.reload();
+        })
+
         var settings = {
-          "async": true,
-          "crossDomain": true,
-          "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).parent().attr('id'),
-          "method": "POST",
-          "headers": {
-            "Content-Type": "application/json",
-            "cache-control": "no-cache",
-            "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
-          },
-          "processData": false,
-          "data": "{\n\t\"status\":\"doing\"\n}"
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:3000/api/todos/getSharedTodos",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "cache-control": "no-cache",
+                "Postman-Token": "e74fd4ce-6c8a-4850-af2f-d6308c64f9a8"
+            }
         }
 
         $.ajax(settings).done(function (response) {
+            console.log(response);
+            response.forEach((element) => {
+                var html = `<div><li>` + element.todo + `</li></div>`;
+
+                $('.sharedTodos').append(html);
+            });
         });
-        location.reload();
-
-      })
-    })
-
-    // move from todo from doing to done
-    $('.doingTodo').each(function () {
-      $(this).click(function () {
-        $(this).parent().appendTo('#doneTodos')
-        var settings = {
-          "async": true,
-          "crossDomain": true,
-          "url": "http://localhost:3000/api/todos/updateStatus/" + $(this).parent().attr('id'),
-          "method": "POST",
-          "headers": {
-            "Content-Type": "application/json",
-            "cache-control": "no-cache",
-            "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
-          },
-          "processData": false,
-          "data": "{\n\t\"status\":\"completed\"\n}"
-        }
-
-        $.ajax(settings).done(function (response) {
-        });
-        location.reload();
-
-      })
-    })
-
-
-    // updates the todo name for tasks todo
-    $('#editTodo').click(function () {
-      console.log('henlo')
-      var editData = $(this).parent().find('.editTodo').val();
-      var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "http://localhost:3000/api/todos/update/" + $(this).parent().attr('id'),
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/json",
-          "cache-control": "no-cache",
-          "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
-        },
-        "processData": false,
-        "data": "{\n\t\"todo\":\"" + editData + "\"\n}"
-      }
-
-      $.ajax(settings).done(function (response) {
-      });
-      location.reload();
-    })
-
-    // updates the todo name for doing tasks
-    $('#todoEdit').click(function () {
-      var editData = $(this).parent().find('.todoEdit').val();
-      var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "http://localhost:3000/api/todos/update/" + $(this).parent().attr('id'),
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/json",
-          "cache-control": "no-cache",
-          "Postman-Token": "c0d33745-e4f7-4a16-904f-8d8ba3e155b7"
-        },
-        "processData": false,
-        "data": "{\n\t\"todo\":\"" + editData + "\"\n}"
-      }
-
-      $.ajax(settings).done(function (response) {
-      });
-      location.reload();
-    })
-
-    // allows sharing of tasks
-    $('.shareTask').click(function () {
-      var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "http://localhost:3000/api/todos/share",
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "cache-control": "no-cache",
-          "Postman-Token": "e74fd4ce-6c8a-4850-af2f-d6308c64f9a8"
-        },
-        "data": {
-          "id": $(this).parent().attr('id'),
-          "email": $(this).parent().find('#shareEmail').val()
-        }
-      }
-
-      $.ajax(settings).done(function (response) {
-      });
-    })
-
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": "http://localhost:3000/api/todos/getSharedTodos",
-      "method": "GET",
-      "headers": {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "cache-control": "no-cache",
-        "Postman-Token": "e74fd4ce-6c8a-4850-af2f-d6308c64f9a8"
-      }
-    }
-
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      response.forEach((element) => {
-        var html = `<div><li>` + element.todo + `</li></div>`;
-
-        $('.sharedTodos').append(html);
-      });
-    });
-  </script>
+    </script>
 
 </body>
 
