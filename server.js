@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 // static files
 app.use(express.static('./public'));
 app.use(express.static('./node_modules'));
+
 // set view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

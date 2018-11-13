@@ -14,6 +14,10 @@ var router = (app) => {
         user.login(app, req, res);
     });
 
+    app.route('/api/logout').get((req, res) => {
+        user.logout(app, req, res);
+    });
+
 }
 
 module.exports = router;
