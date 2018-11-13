@@ -109,9 +109,6 @@
         <script>
 
             $('.regSubmit').click(() => {
-                if($('regSubmit').val().length < 1){
-                    return;
-                }
                 var settings = {
                     "async": true,
                     "crossDomain": true,
@@ -134,9 +131,6 @@
             })
 
             $('#loginSub').click(() => {
-                if($('#loginSub').val().length < 1){
-                    return;
-                }
                 var settings = {
                     "async": true,
                     "crossDomain": true,
