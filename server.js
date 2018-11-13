@@ -5,9 +5,6 @@ const session = require('express-session');
 const fileStore = require('session-file-store')(session);
 const loginRoutes = require('./routes/loginRoutes');
 const routes = require('./routes/routes')
-//import './../node_modules/bulma/css/bulma.css';
-
-
 
 // create express app
 const app = express();
