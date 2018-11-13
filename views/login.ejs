@@ -7,22 +7,125 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Login </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="loginSub">
-        <input type="text" class="loginEmail" placeholder='Username' />
-        <input type="text" class="loginPass" placeholder='Password' />
-        <button type="text" class="submitLogin"> Login </button>
-    </div>
 
-    <div id='regSub'>
-        <input type="text" class="emailReg" placeholder='Username' />
-        <input type="text" class="passwordReg" placeholder='Password' />
-        <button class="regSubmit"> Register </button>
-    </div>
+    <nav class="navbar" style="height: 75px;">
+        <div class="navbar-brand">
+            <a class='navbar item'>
+                <a class="image is-64x64">
+                    <img src="/img/idea.png">
+                </a>
+            </a>
+
+            <h1 class='title is-2'> Todoza </h1>
+        </div>
+    </nav>
+
+
+    <section class="section has-background-info is-fullheight">
+        <div class="hero-body">
+            <div class='columns'>
+                <div class="column is-4 is-offset-1">
+                    <article class="media notification is-warning">
+                        <figure class="media-centre">
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h3 class="title has-text-black has-text-centered">Login</h3>
+                                <p class="subtitle has-text-black has-text-centered">Please login to proceed</p>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="box">
+                        <form id='loginSub'>
+                            <div class="field">
+                                <label class="label has-text-centered"> Username </label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="loginEmail input is-success is-rounded" type="text" placeholder="Username"
+                                        required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label has-text-centered"> Password </label>
+                                <div class=" control has-icons-left">
+                                    <input class="loginPass input is-success is-rounded" type="password" placeholder="Password"
+                                        required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <button class="submitLogin button is-rounded is-info is-large is-fullwidth"> Login
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="column is-4 is-offset-2">
+                    <article class="media notification is-warning">
+                        <figure class="media-centre">
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h3 class="title has-text-black has-text-centered"> Not got an account yet? </h3>
+                                <p class="subtitle has-text-black has-text-centered"> Sign Up Below! </p>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="box">
+                        <form id='regSub'>
+                            <div class="field">
+                                <label class="label has-text-centered"> Username </label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="emailReg input is-success is-rounded" type="text" placeholder="Username"
+                                        required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label has-text-centered"> Password </label>
+                                <div class=" control has-icons-left">
+                                    <input class="passwordReg input is-success is-rounded" type="password" placeholder="Password"
+                                        required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div style='display: none' class='level regSuccess'>
+                                <div class='level-item has-text-centered'>
+                                    <p class="image is-64x64">
+                                        <img src="/img/checked.png">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button class="regSubmit button is-info is-large is-fullwidth">
+                                Register
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
 
     <script>
+
         $('.regSubmit').click(() => {
             var settings = {
                 "async": true,
@@ -45,7 +148,7 @@
             });
         })
 
-        $('.loginSub').click(() => {
+        $('#loginSub').click(() => {
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -62,13 +165,17 @@
                 }
             }
 
-            $.ajax(settings).done( (response) => {
-                if(response.login === "Login Successful!") {
+            $.ajax(settings).done((response) => {
+                if (response.login === "Login Successful!") {
                     window.location.replace('/api/todos');
                 }
                 console.log(response);
             });
         })
+
+        $(".regSubmit").click(() => {
+            $(".regSuccess").show()
+        });
 
     </script>
 </body>

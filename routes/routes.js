@@ -57,7 +57,7 @@ var router = (app) => {
             if (err) {
                 console.log(err)
             }
-            res.redirect('/todos');
+            res.redirect('/api/todos');
         });
     });
 

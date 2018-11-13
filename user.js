@@ -17,6 +17,13 @@ module.exports = {
                 res.json({ 'login': 'Login Successful!' })
             }
         })
-        
+    },
+
+    logout: (app, req, res) => {
+        req.session.destroy();
+        res.redirect('/login')
+        console.log(req);
     }
+
+
 }
