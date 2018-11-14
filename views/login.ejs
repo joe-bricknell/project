@@ -32,21 +32,22 @@
             <div class='columns'>
                 <div class="column is-4 is-offset-1">
                     <article class="media notification is-warning">
-                        <figure class="media-centre">
-                        </figure>
+                        <figure class="media-centre"></figure>
+
                         <div class="media-content">
                             <div class="content">
-                                <h3 class="title has-text-black has-text-centered">Login</h3>
-                                <p class="subtitle has-text-black has-text-centered">Please login to proceed</p>
+                                <h3 class="title has-text-black has-text-centered"> Login </h3>
+                                <p class="subtitle has-text-black has-text-centered"> Please login to proceed </p>
                             </div>
                         </div>
                     </article>
+
                     <div class="box">
                         <div id='loginSub'>
                             <div class="field">
                                 <label class="label has-text-centered"> Username </label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input class="loginEmail input is-success is-rounded" type="text" placeholder="Username"
+                                    <input class="loginUsername input is-success is-rounded" type="text" placeholder="Username"
                                         required>
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-user"></i>
@@ -57,25 +58,26 @@
                             <div class="field">
                                 <label class="label has-text-centered"> Password </label>
                                 <div class=" control has-icons-left">
-                                    <input class="loginPass input is-success is-rounded" type="password" placeholder="Password"
-                                        required>
+                                    <input class="loginPass input is-success is-rounded" type="password" placeholder="Password" required>
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
                                 </div><br>
-                                   <strong><p class='loginFail title is-5 has-text-centered has-text-danger' style='display:none'> Username or Password Incorrect </p></strong>
+
+                                <strong>
+                                    <p class='loginfail title is-5 has-text-centered has-text-danger' style='display:none'>
+                                        Username or Password Incorrect </p>
+                                </strong>
                             </div>
-                            <button class="submitLogin button is-rounded is-info is-large is-fullwidth"> Login
-                            </button>
-                         
+
+                            <button class="submitLogin button is-rounded is-info is-large is-fullwidth"> Login </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="column is-4 is-offset-2">
                     <article class="media notification is-warning">
-                        <figure class="media-centre">
-                        </figure>
+                        <figure class="media-centre"></figure>
                         <div class="media-content">
                             <div class="content">
                                 <h3 class="title has-text-black has-text-centered"> Not got an account yet? </h3>
@@ -83,12 +85,13 @@
                             </div>
                         </div>
                     </article>
+
                     <div class="box">
                         <div id='regSub'>
                             <div class="field">
                                 <label class="label has-text-centered"> Username </label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input class="emailReg input is-success is-rounded" type="text" placeholder="Username"
+                                    <input class="usernameReg input is-success is-rounded" type="text" placeholder="Username"
                                         required>
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-user"></i>
@@ -106,6 +109,7 @@
                                     </span>
                                 </div>
                             </div>
+
                             <div style='display: none' class='level regSuccess'>
                                 <div class='level-item has-text-centered'>
                                     <p class="image is-64x64">
@@ -114,19 +118,17 @@
                                 </div>
                             </div>
 
-                            <button class="regSubmit button is-rounded is-info is-large is-fullwidth">
-                                Register
-                            </button>
+                            <button class="regSubmit button is-rounded is-info is-large is-fullwidth"> Register </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </section>
 
     <script>
 
+        // registration submission
         $('.regSubmit').click(() => {
             var settings = {
                 "async": true,
@@ -139,7 +141,7 @@
                     "Postman-Token": "1e588037-0438-48b3-9ded-050a05358307"
                 },
                 "data": {
-                    "email": $('.emailReg').val(),
+                    "username": $('.usernameReg').val(),
                     "password": $('.passwordReg').val()
                 }
             }
@@ -149,6 +151,7 @@
             });
         })
 
+        // login submission
         $('#loginSub').click(() => {
             var settings = {
                 "async": true,
@@ -161,7 +164,7 @@
                     "Postman-Token": "c3fa6bba-3f18-41fd-8e83-04a033f09783"
                 },
                 "data": {
-                    "email": $('.loginEmail').val(),
+                    "username": $('.loginUsername').val(),
                     "password": $('.loginPass').val()
                 }
             }
@@ -170,53 +173,54 @@
                 if (response.login === "Login Successful!") {
                     window.location.replace('/api/todos');
                 }
-                if (response.login === "Username or Password does not match") {
-                    $(".loginFail").show()
-                }
                 console.log(response);
             });
         })
 
+        // show tick and hide register button
         $(".regSubmit").click(() => {
             $(".regSuccess").show()
+            $('.regSubmit').hide();
+
         });
 
-        $('.regSubmit').attr('disabled',true);
+        
+        // disables register button if no characters are in either username or password fields
+        $('.regSubmit').attr('disabled', true);
+        $('.usernameReg, .passwordReg').keyup(function () {
+            if ($('.usernameReg').val().length < 1 || $('.passwordReg').val().length < 1) {
+                $('.regSubmit').attr('disabled', true);
+            } else {
+                $('.regSubmit').attr('disabled', false);
+            }
+        })
 
-    $('.emailReg, .passwordReg').keyup(function(){
-         if($('.emailReg').val().length < 1 || $('.passwordReg').val().length < 1){
-             $('.regSubmit').attr('disabled', true);
-         } else {
-             $('.regSubmit').attr('disabled', false);
-         }
-    })
+        // disables login button if no characters are in either username or password fields
+        $('.submitLogin').attr('disabled', true);
+        $('.loginUsername, .loginPass').keyup(function () {
+            if ($('.loginUsername').val().length < 1 || $('.loginPass').val().length < 1) {
+                $('.submitLogin').attr('disabled', true);
+            } else {
+                $('.submitLogin').attr('disabled', false);
+            }
+        })
 
-    $('.submitLogin').attr('disabled',true);
+        // only allows you to enter alphanumeric characters and a few extra keys
+        $(".loginUsername, .loginPass, .usernameReg, .passwordReg").keydown(function (e) {
+            var k = e.keyCode || e.which;
+            var ok = k >= 65 && k <= 90 || // A-Z
+                k >= 96 && k <= 105 || // a-z
+                k >= 35 && k <= 40 || // arrows
+                k == 9 || //tab
+                k == 46 || //del
+                k == 8 || // backspaces
+                (!e.shiftKey && k >= 48 && k <= 57); // only 0-9
 
-    $('.loginEmail, .loginPass').keyup(function(){
-         if($('.loginEmail').val().length < 1 || $('.loginPass').val().length < 1){
-             $('.submitLogin').attr('disabled', true);
-         } else {
-             $('.submitLogin').attr('disabled', false);
-         }
-    })
-
-    $(".loginEmail, .loginPass, .emailReg, .passwordReg").keydown(function (e){
-		var k = e.keyCode || e.which;
-		var ok = k >= 65 && k <= 90 || // A-Z
-			k >= 96 && k <= 105 || // a-z
-			k >= 35 && k <= 40 || // arrows
-			k == 9 || //tab
-			k == 46 || //del
-			k == 8 || // backspaces
-			(!e.shiftKey && k >= 48 && k <= 57); // only 0-9
-
-		if(!ok || (e.ctrlKey && e.altKey)){
-			e.preventDefault();
-		}
-	});
-
-
+            if (!ok || (e.ctrlKey && e.altKey)) {
+                e.preventDefault();
+            }
+        });
+        
     </script>
 </body>
 

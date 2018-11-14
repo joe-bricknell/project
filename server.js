@@ -9,6 +9,7 @@ const routes = require('./routes/routes')
 // create express app
 const app = express();
 
+// set up session for login
 app.use(session({
     name: 'session',
     secret: 'mySuperSecretSessionProject',
@@ -34,8 +35,8 @@ app.use(express.static('./node_modules'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-let db = ""
 // connect to mongodb
+let db = ""
 MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, client) => {
     if (err) {
         console.log(err)
