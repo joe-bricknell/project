@@ -42,7 +42,7 @@
                         </div>
                     </article>
                     <div class="box">
-                        <form id='loginSub'>
+                        <div id='loginSub'>
                             <div class="field">
                                 <label class="label has-text-centered"> Username </label>
                                 <div class="control has-icons-left has-icons-right">
@@ -62,12 +62,13 @@
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
-                                </div>
+                                </div><br>
+                                   <strong><p class='loginFail title is-5 has-text-centered has-text-danger' style='display:none'> Username or Password Incorrect </p></strong>
                             </div>
                             <button class="submitLogin button is-rounded is-info is-large is-fullwidth"> Login
                             </button>
-
-                        </form>
+                         
+                        </div>
                     </div>
                 </div>
 
@@ -83,7 +84,7 @@
                         </div>
                     </article>
                     <div class="box">
-                        <form id='regSub'>
+                        <div id='regSub'>
                             <div class="field">
                                 <label class="label has-text-centered"> Username </label>
                                 <div class="control has-icons-left has-icons-right">
@@ -113,10 +114,10 @@
                                 </div>
                             </div>
 
-                            <button class="regSubmit button is-info is-large is-fullwidth">
+                            <button class="regSubmit button is-rounded is-info is-large is-fullwidth">
                                 Register
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,6 +170,9 @@
                 if (response.login === "Login Successful!") {
                     window.location.replace('/api/todos');
                 }
+                if (response.login === "Username or Password does not match") {
+                    $(".loginFail").show()
+                }
                 console.log(response);
             });
         })
@@ -176,6 +180,42 @@
         $(".regSubmit").click(() => {
             $(".regSuccess").show()
         });
+
+        $('.regSubmit').attr('disabled',true);
+
+    $('.emailReg, .passwordReg').keyup(function(){
+         if($('.emailReg').val().length < 1 || $('.passwordReg').val().length < 1){
+             $('.regSubmit').attr('disabled', true);
+         } else {
+             $('.regSubmit').attr('disabled', false);
+         }
+    })
+
+    $('.submitLogin').attr('disabled',true);
+
+    $('.loginEmail, .loginPass').keyup(function(){
+         if($('.loginEmail').val().length < 1 || $('.loginPass').val().length < 1){
+             $('.submitLogin').attr('disabled', true);
+         } else {
+             $('.submitLogin').attr('disabled', false);
+         }
+    })
+
+    $(".loginEmail, .loginPass, .emailReg, .passwordReg").keydown(function (e){
+		var k = e.keyCode || e.which;
+		var ok = k >= 65 && k <= 90 || // A-Z
+			k >= 96 && k <= 105 || // a-z
+			k >= 35 && k <= 40 || // arrows
+			k == 9 || //tab
+			k == 46 || //del
+			k == 8 || // backspaces
+			(!e.shiftKey && k >= 48 && k <= 57); // only 0-9
+
+		if(!ok || (e.ctrlKey && e.altKey)){
+			e.preventDefault();
+		}
+	});
+
 
     </script>
 </body>
