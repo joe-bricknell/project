@@ -1,13 +1,16 @@
 module.exports = {
+
+    // inserts username and password into database
     registerUser: (app, req, res) => {
-        app.get('database').collection('users').insertOne({ 'email': req.body.email, 'password': req.body.password }, (err, docs) => {
+        app.get('database').collection('users').insertOne({ 'username': req.body.username, 'password': req.body.password }, (err, docs) => {
             if (err) return res.send(err)
             res.send(docs)
         });
     },
 
+    // looks for username and password in database
     login: (app, req, res) => {
-        app.get('database').collection('users').find({ 'email': req.body.email, 'password': req.body.password }).toArray((err, docs) => {
+        app.get('database').collection('users').find({ 'username': req.body.username, 'password': req.body.password }).toArray((err, docs) => {
             if (err) {
                 res.json({ 'error': 'Login Error' })
             } else if (docs.length < 1) {
@@ -19,6 +22,7 @@ module.exports = {
         })
     },
 
+    // destroys session logging out user
     logout: (app, req, res) => {
         req.session.destroy();
         res.redirect('/login')
